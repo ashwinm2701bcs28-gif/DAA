@@ -1,0 +1,103 @@
+#include <stdio.h>
+int main() {
+   int arr[100], n, i, j, min, temp;
+   printf("Enter the number of elements: ");
+   scanf("%d", &n);
+   printf("Enter %d integers:\n", n);
+   for (i = 0; i < n; i++) {
+      scanf("%d", &arr[i]);
+   }
+   for (i = 0; i < n - 1; i++) {
+      for (j = 0; j < n - i - 1; j++) {
+         if (arr[j] > arr[j + 1]) {
+            temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+         }
+      }
+   }
+   printf("Sorted array in ascending order:\n");
+   for (i = 0; i < n; i++) {
+      printf("%d ", arr[i]);
+   }
+   printf("\n");
+   return 0;
+}
+[24bcs075@mepcolinux ex1]$cat ex1.prn
+Script started on Thu Feb  5 15:25:01 2026
+[24bcs075@mepcolinux ex1]$cat selsort.c
+#include <stdio.h>
+int main() {
+   int arr[100], n, i, j, min, temp;
+   printf("Enter the number of elements: ");
+   scanf("%d", &n);
+   printf("Enter %d integers:\n", n);
+   for (i = 0; i < n; i++) {
+      scanf("%d", &arr[i]);
+   }
+   for (i = 0; i < n - 1; i++) {
+      min = i;
+      for (j = i + 1; j < n; j++) {
+         if (arr[j] < arr[min]) {
+            min = j;
+         }
+      }
+      temp = arr[min];
+      arr[min] = arr[i];
+      arr[i] = temp;
+   }
+   printf("Sorted array in ascending order:\n");
+   for (i = 0; i < n; i++) {
+      printf("%d ", arr[i]);
+   }
+   printf("\n");
+   return 0;
+}
+
+[24bcs075@mepcolinux ex1]$./a
+Enter the number of elements: 5
+Enter 5 integers:
+1
+5
+3
+4
+6
+Sorted array in ascending order:
+1 3 4 5 6
+[24bcs075@mepcolinux ex1]$cat bubblesort.c
+#include <stdio.h>
+int main() {
+   int arr[100], n, i, j, min, temp;
+   printf("Enter the number of elements: ");
+   scanf("%d", &n);
+   printf("Enter %d integers:\n", n);
+   for (i = 0; i < n; i++) {
+      scanf("%d", &arr[i]);
+   }
+   for (i = 0; i < n - 1; i++) {
+      for (j = 0; j < n - i - 1; j++) {
+         if (arr[j] > arr[j + 1]) {
+            temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+         }
+      }
+   }
+   printf("Sorted array in ascending order:\n");
+   for (i = 0; i < n; i++) {
+      printf("%d ", arr[i]);
+   }
+   printf("\n");
+   return 0;
+}
+[24bcs075@mepcolinux ex1]$./b
+Enter the number of elements: 6
+Enter 6 integers:
+1
+6
+8
+4
+3
+6
+Sorted array in ascending order:
+1 3 4 6 6 8
