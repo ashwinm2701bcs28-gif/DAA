@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+const int MAX = 100;
+const int INF = 1000;
+void floyd(int n, int D[MAX][MAX]) {
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                // Manual min: if (current > new_path) current = new_path
+                if (D[i][k] + D[k][j] < D[i][j]) {
+                    D[i][j] = D[i][k] + D[k][j];
+                }
+            }
+        }
+    }
+}
+
+int main() {
+    int n;
+    int D[MAX][MAX];
+
+    cout << "Enter the number of vertices: ";
+    cin >> n;
+
+    cout << "Enter the weight matrix (use " << INF << " for infinity):" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> D[i][j];
+        }
+    }
+
+    floyd(n, D);
+
+    cout << "\nThe distance matrix of the shortest paths' lengths:" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (D[i][j] >= INF)
+                cout << "INF\t";
+            else
+                cout << D[i][j] << "\t";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
+Enter the number of vertices: 4
+Enter the weight matrix (use 1000 for infinity):
+ 0
+ 1000
+ 3
+ 1000
+ 2
+ 0
+ 1000
+ 1000
+ 1000
+ 7
+ 0
+ 1
+ 6
+ 1000
+ 1000
+ 0
+
+ The distance matrix of the shortest paths' lengths:
+ 0       10      3       4
+ 2       0       5       6
+ 7       7       0       1
+ 6       16      9       0
