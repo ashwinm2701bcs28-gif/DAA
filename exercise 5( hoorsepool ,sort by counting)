@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+void comparisonCountingSort(int A[], int n) {
+    int Count[n];
+    int S[n];
+
+    // Step 1: Initialize Count array
+    for (int i = 0; i < n; i++) {
+        Count[i] = 0;
+    }
+
+    // Step 2: Count comparisons
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (A[i] < A[j])
+                Count[j]++;
+            else
+                Count[i]++;
+        }
+    }
+
+    // Step 3: Place elements in sorted position
+    for (int i = 0; i < n; i++) {
+        S[Count[i]] = A[i];
+    }
+
+    // Step 4: Print sorted array
+    cout << "Sorted array: ";
+    for (int i = 0; i < n; i++) {
+        cout << S[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    int n;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    int A[n];
+    cout << "Enter elements:\n";
+    for (int i = 0; i < n; i++) {
+        cin >> A[i];
+    }
+
+    comparisonCountingSort(A, n);
+
+    return 0;
+}
+
+[24bcs075@mepcolinux ex5]$./s
+Enter number of elements: 7
+Enter elements:
+7
+8
+1
+2
+11
+16
+3
+Sorted array: 1 2 3 7 8 11 16
