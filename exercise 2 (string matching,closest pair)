@@ -1,0 +1,251 @@
+#include <iostream>
+#include <string>
+using namespace std;
+void search(const string& text, const string& pattern) {
+    int N = text.length();
+    int M = pattern.length();
+    bool found = false;
+
+    // Outer loop to slide the pattern one by one across the text
+    for (int i = 0; i <= N - M; i++) {
+        // Print the current pass information
+        cout << "Pass " << (i + 1) << ": Comparing pattern with text starting at index " << i << endl;
+        cout << "   Text:    " << text << endl;
+        cout << "   Pattern: ";
+        // Print leading spaces to align the pattern with the current text position
+        for (int k = 0; k < i; k++) {
+            cout << " ";
+        }
+        cout << pattern << endl;
+
+        int j;
+        // Inner loop to check for pattern match at the current position i
+        for (j = 0; j < M; j++) {
+            if (text[i + j] != pattern[j]) {
+                cout << "   Mismatch found at text index " << i + j << endl;
+                break;
+            }
+        }
+
+        // If the inner loop completed without a break, a match is found
+        if (j == M) {
+            cout << ">>> Pattern found at index " << i << " <<<" << endl;
+            found = true;
+        }
+        cout << "----------------------------------------" << endl;
+    }
+
+    // Print the final result
+    cout << "\n--- Final Result ---" << endl;
+    cout << "Text:    " << text << endl;
+    cout << "Pattern: " << pattern << endl;
+    if (found) {
+        cout << "The pattern string was found in the text." << endl;
+    } else {
+        cout << "The pattern string was not found in the text." << endl;
+    }
+}
+
+int main() {
+    string text, pattern;
+
+    cout << "Enter the main text string: ";
+    getline(cin, text); // Use getline to allow spaces in the text
+
+    cout << "Enter the pattern string to search: ";
+    getline(cin, pattern); // Use getline to allow spaces in the pattern
+
+    if (pattern.length() > text.length()) {
+        cout << "\nError: Pattern length cannot be greater than text length." << endl;
+    } else {
+        search(text, pattern);
+    }
+
+    return 0;
+}
+[24bcs075@mepcolinux ex2]$./s
+Enter the main text string:my name is ishwarya
+Enter the pattern string to search: ishwarya
+Pass 1: Comparing pattern with text starting at index 0
+   Text:    my name is ishwarya
+   Pattern: ishwarya
+   Mismatch found at text index 0
+----------------------------------------
+Pass 2: Comparing pattern with text starting at index 1
+   Text:    my name is ishwarya
+   Pattern:  ishwarya
+   Mismatch found at text index 1
+----------------------------------------
+Pass 3: Comparing pattern with text starting at index 2
+   Text:    my name is ishwarya
+   Pattern:   ishwarya
+   Mismatch found at text index 2
+----------------------------------------
+Pass 4: Comparing pattern with text starting at index 3
+   Text:    my name is ishwarya
+   Pattern:    ishwarya
+   Mismatch found at text index 3
+----------------------------------------
+Pass 5: Comparing pattern with text starting at index 4
+   Text:    my name is ishwarya
+   Pattern:     ishwarya
+   Mismatch found at text index 4
+----------------------------------------
+Pass 6: Comparing pattern with text starting at index 5
+   Text:    my name is ishwarya
+   Pattern:      ishwarya
+   Mismatch found at text index 5
+----------------------------------------
+Pass 7: Comparing pattern with text starting at index 6
+   Text:    my name is ishwarya
+   Pattern:       ishwarya
+   Mismatch found at text index 6
+----------------------------------------
+Pass 8: Comparing pattern with text starting at index 7
+   Text:    my name is ishwarya
+   Pattern:        ishwarya
+   Mismatch found at text index 7
+----------------------------------------
+Pass 9: Comparing pattern with text starting at index 8
+   Text:    my name is ishwarya
+   Pattern:         ishwarya
+   Mismatch found at text index 10
+----------------------------------------
+Pass 10: Comparing pattern with text starting at index 9
+   Text:    my name is ishwarya
+   Pattern:          ishwarya
+   Mismatch found at text index 9
+----------------------------------------
+Pass 11: Comparing pattern with text starting at index 10
+   Text:    my name is ishwarya
+   Pattern:           ishwarya
+   Mismatch found at text index 10
+----------------------------------------
+Pass 12: Comparing pattern with text starting at index 11
+   Text:    my name is ishwarya
+   Pattern:            ishwarya
+>>> Pattern found at index 11 <<<
+----------------------------------------
+
+--- Final Result ---
+Text:    my name is ishwarya
+Pattern: ishwarya
+The pattern string was found in the text.
+[24bcs075@mepcolinux ex2]$./s
+Enter the main text string: 001101
+Enter the pattern string to search: 110
+Pass 1: Comparing pattern with text starting at index 0
+   Text:    001101
+   Pattern: 110
+   Mismatch found at text index 0
+----------------------------------------
+Pass 2: Comparing pattern with text starting at index 1
+   Text:    001101
+   Pattern:  110
+   Mismatch found at text index 1
+----------------------------------------
+Pass 3: Comparing pattern with text starting at index 2
+   Text:    001101
+   Pattern:   110
+>>> Pattern found at index 2 <<<
+----------------------------------------
+Pass 4: Comparing pattern with text starting at index 3
+   Text:    001101
+   Pattern:    110
+   Mismatch found at text index 4
+----------------------------------------
+
+--- Final Result ---
+Text:    001101
+Pattern: 110
+The pattern string was found in the text.
+
+*****************************************************************************************
+
+[24bcs075@mepcolinux ex2]$cat closepair.cpp
+----------------------------------------------------------
+CLOSEST PAIR
+
+----------------------------------------------------------
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+double distance(double x1, double y1, double x2, double y2)
+{
+    double dx = x2 - x1;
+    double dy = y2 - y1;
+    return sqrt(dx*dx + dy*dy);
+}
+void findClosest(double x[], double y[], int n)
+{
+    double minDist = 999999;
+    int p1 = 0, p2 = 1;
+
+    cout << "\nDistances between each pair:\n";
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            double d = distance(x[i], y[i], x[j], y[j]);
+
+            cout << "(" << x[i] << "," << y[i] << ") - ("
+                 << x[j] << "," << y[j] << ") = " << d << endl;
+
+            if (d < minDist)
+            {
+                minDist = d;
+                p1 = i;
+                p2 = j;
+            }
+        }
+    }
+
+    cout << "\nClosest Pair: (" << x[p1] << "," << y[p1] << ") and ("
+         << x[p2] << "," << y[p2] << ")";
+    cout << "\nMinimum Distance = " << minDist << endl;
+}
+
+int main()
+{
+    int n;
+    cout << "Enter points: ";
+    cin >> n;
+
+    double x[n], y[n];
+
+    cout << "Enter coordinates of x,y:\n";
+    for (int i = 0; i < n; i++)
+    {
+        cin >> x[i] >> y[i];
+    }
+
+    findClosest(x, y, n);
+
+    return 0;
+}
+[24bcs075@mepcolinux ex2]$./c
+Enter points: 5
+Enter coordinates of x,y:
+1 2
+3 4
+4 5
+7
+8 3
+2 5
+
+Distances between each pair:
+(1,2) - (3,4) = 2.82843
+(1,2) - (4,5) = 4.24264
+(1,2) - (7,8) = 8.48528
+(1,2) - (3,2) = 2
+(3,4) - (4,5) = 1.41421
+(3,4) - (7,8) = 5.65685
+(3,4) - (3,2) = 2
+(4,5) - (7,8) = 4.24264
+(4,5) - (3,2) = 3.16228
+(7,8) - (3,2) = 7.2111
+
+Closest Pair: (3,4) and (4,5)
+Minimum Distance = 1.41421
